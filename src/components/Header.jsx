@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { ShoppingCart, Menu, X, Search } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import gsap from "gsap";
+import { gsap } from "gsap";
+
 
 const Header = () => {
   const { cartItems, setIsCartOpen } = useCart();
