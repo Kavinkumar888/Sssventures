@@ -11,7 +11,7 @@ import Cart from "./components/Cart";
 import Home from "./Pages/Home";
 import Products from "./Pages/Product";
 import Dyed from "./Pages/Dyed";
-import Contact from "./Pages/ContactUs";
+import Contact from "./Pages/Contactus";
 
 // Context
 import { CartProvider } from "./context/CartContext";
