@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <div className="text-2xl font-bold mb-4">🏵️ TextileHub</div>
+            <div className="text-2xl font-bold mb-4">🏵️ SSS Ventures</div>
             <p className="text-gray-300 mb-4">
               Your trusted partner for premium quality textiles and traditional wear since 1970.
             </p>
