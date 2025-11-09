@@ -55,7 +55,7 @@ const Header = () => {
           to="/"
           className="text-2xl font-bold text-pink-600 cursor-pointer select-none"
         >
-          🏵️ TextileHub
+          🏵️ SSS Ventures
         </Link>
 
         {/* Desktop Navigation */}
