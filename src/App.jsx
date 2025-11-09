@@ -9,7 +9,7 @@ import Cart from "./components/Cart";
 
 // Pages  ✅ Fix casing here
 import Home from "./Pages/Home";
-import Products from "./Pages/Product";
+import Products from "./Pages/Products";
 import Dyed from "./Pages/Dyed";
 import Contact from "./Pages/Contactus";
 

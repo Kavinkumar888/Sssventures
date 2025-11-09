@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { categories, subCategories, products } from "../data/products";
 import { useCart } from "../context/CartContext"; // ✅ Import useCart
 
-const Product = () => {
+const Products = () => {
   const [filteredProducts, setFilteredProducts] = useState(products);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubCategory, setActiveSubCategory] = useState(null);
@@ -194,4 +194,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Products;
