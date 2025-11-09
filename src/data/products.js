@@ -13,18 +13,6 @@ export const categories = [
     description: 'Western and ethnic dresses'
   },
   {
-    id: 'Schiffli',
-    name: 'Schiffli',
-    image: 'https://images.unsplash.com/photo-1583496661160-fb5886a13d77?w=400',
-    description: 'Casual and designer kurtis'
-  },
-  {
-    id: 'KnittedFabric',
-    name: 'KnittedFabric',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400',
-    description: 'Traditional mens wear'
-  },
-  {
     id: 'GreigeFabric',
     name: 'GreigeFabric',
     image: 'https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=400',
@@ -41,8 +29,6 @@ export const categories = [
 export const subCategories = {
   WovenFabric: ['Silk', 'Cotton', 'Viscose', 'Model', 'Linen','Bambo','Banana','Hemb'],
   SustainableFabric: ['LENZING Fabric', 'LIVA Fabric', 'BEMBERG CUPRO', 'Organic Cotton'],
-  Schiffli: ['Anarkali', 'Straight', 'A-line', 'High-Low', 'Printed'],
-  KnittedFabric: ['Kurtas', 'Shirts', 'Pants', 'Traditional', 'Formal'],
   GreigeFabric: ['Boys', 'Girls', 'Infants', 'Party', 'Casual'],
   BuySwatches: ['Jewelry', 'Bags', 'Footwear', 'Belts', 'Scarves']
 };

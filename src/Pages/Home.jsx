@@ -1,184 +1,395 @@
-// src/pages/Home.jsx
-import React, { useEffect, useRef } from 'react'
-import { ArrowRight, Star, Truck, Shield, Award } from 'lucide-react'
-import gsap from 'gsap'
+// src/Pages/Home.jsx
+import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const Home = () => {
-  const heroRef = useRef(null)
-  const featuresRef = useRef(null)
-  const aboutRef = useRef(null)
+  const heroRef = useRef(null);
+  const sectionRef = useRef(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Banner images array
+  const bannerImages = [
+    {
+      url: "https://images.unsplash.com/photo-1558769132-cb25c5d11e85?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Design, develop and source",
+      highlight: "customized fabrics",
+      subtitle: "for your brand"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1520006403909-838d6b92c22e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Premium Quality",
+      highlight: "Textile Solutions",
+      subtitle: "for modern fashion brands"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1506629905607-e48b0e67d879?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      title: "Sustainable &",
+      highlight: "Eco-Friendly Fabrics",
+      subtitle: "for a better tomorrow"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1566206091558-7f218b696731?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2064&q=80",
+      title: "Global Delivery",
+      highlight: "Worldwide Service",
+      subtitle: "right to your doorstep"
+    }
+  ];
+
+  // Auto slide effect
+  useEffect(() => {
+    const slideInterval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(slideInterval);
+  }, [bannerImages.length]);
+
+  // Manual slide navigation
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  // Next and previous slides
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + bannerImages.length) % bannerImages.length);
+  };
 
   useEffect(() => {
-    // Hero animation
-    gsap.fromTo(heroRef.current,
+    // Hero section animation
+    gsap.fromTo(
+      heroRef.current,
       { opacity: 0, y: 50 },
-      { opacity: 1, y: 0, duration: 1.5, ease: "power3.out" }
-    )
-
-    // Features animation
-    gsap.fromTo(featuresRef.current.children,
-      { opacity: 0, y: 30 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 1, 
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: featuresRef.current,
-          start: "top 80%"
-        }
-      }
-    )
-
-    // About animation
-    gsap.fromTo(aboutRef.current,
-      { opacity: 0, x: -50 },
-      { 
-        opacity: 1, 
-        x: 0, 
+      {
+        opacity: 1,
+        y: 0,
         duration: 1,
-        scrollTrigger: {
-          trigger: aboutRef.current,
-          start: "top 80%"
-        }
+        ease: "power3.out",
       }
-    )
-  }, [])
+    );
 
-  const featuredProducts = [
-    {
-      id: 1,
-      name: "Silk Saree",
-      price: 2999,
-      image: "https://images.unsplash.com/photo-1583391738853-4682c0350d44?w=400",
-      rating: 4.8
-    },
-    {
-      id: 2,
-      name: "Cotton Kurti",
-      price: 1299,
-      image: "https://images.unsplash.com/photo-1583496661160-fb5886a13d77?w=400",
-      rating: 4.6
-    },
-    {
-      id: 3,
-      name: "Designer Dress",
-      price: 4599,
-      image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400",
-      rating: 4.9
-    }
-  ]
+    // Section animations
+    gsap.fromTo(
+      sectionRef.current,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+          end: "bottom 20%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  }, []);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center bg-gradient-to-r from-amber-200 to-orange-300">
-        <div ref={heroRef} className="text-center text-white px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gray-800">
-            Premium Textiles
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-gray-700 max-w-2xl mx-auto">
-            Discover the finest collection of traditional and modern textiles
-          </p>
-          <button className="bg-primary text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-secondary transition-all duration-300 flex items-center gap-2 mx-auto group">
-            Shop Now 
-            <ArrowRight className="group-hover:translate-x-1 transition-transform" />
-          </button>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Why Choose Us</h2>
-          <div ref={featuresRef} className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: <Award />, title: "Premium Quality", desc: "100% authentic materials" },
-              { icon: <Truck />, title: "Free Shipping", desc: "On orders above ₹1999" },
-              { icon: <Shield />, title: "Secure Payment", desc: "Safe & encrypted transactions" }
-            ].map((feature, index) => (
-              <div key={index} className="text-center p-6 bg-amber-50 rounded-xl hover:shadow-lg transition-shadow">
-                <div className="w-16 h-16 bg-secondary text-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  {feature.icon}
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section className="py-20 bg-gradient-to-br from-orange-100 to-amber-200">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div ref={aboutRef}>
-              <h2 className="text-4xl font-bold mb-6 text-gray-800">About Our Company</h2>
-              <p className="text-lg text-gray-700 mb-6">
-                With over 50 years of experience in the textile industry, we bring you the finest 
-                collection of fabrics, clothing, and traditional wear. Our commitment to quality 
-                and customer satisfaction makes us the preferred choice for textile lovers.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { value: "50+", label: "Years Experience" },
-                  { value: "10K+", label: "Happy Customers" },
-                  { value: "500+", label: "Products" },
-                  { value: "50+", label: "Awards" }
-                ].map((stat, index) => (
-                  <div key={index} className="text-center p-4 bg-white/50 rounded-lg">
-                    <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                    <div className="text-gray-600">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <img 
-                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400" 
-                alt="Store" 
-                className="rounded-lg shadow-lg"
+    <div className="min-h-screen bg-white">
+      {/* Hero Section with Slider */}
+      <section
+        ref={heroRef}
+        className="relative h-screen overflow-hidden"
+      >
+        {/* Slides Container */}
+        <div className="relative w-full h-full">
+          {bannerImages.map((image, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              {/* Background Image with Overlay */}
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${image.url}')`,
+                }}
               />
-              <img 
-                src="https://images.unsplash.com/photo-1581539250439-c96689b516dd?w=400" 
-                alt="Products" 
-                className="rounded-lg shadow-lg mt-8"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12 text-gray-800">Featured Products</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {featuredProducts.map(product => (
-              <div key={product.id} className="bg-amber-50 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-semibold">{product.name}</h3>
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                      <span>{product.rating}</span>
+              
+              {/* Content - Only show for active slide */}
+              {index === currentSlide && (
+                <div className="relative h-full flex items-center justify-center">
+                  <div className="text-center text-white px-4 max-w-4xl mx-auto">
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+                      {image.title}{" "}
+                      <span className="text-pink-300 block md:inline">
+                        {image.highlight}
+                      </span>
+                    </h1>
+                    <p className="text-xl md:text-2xl mb-8 text-gray-200">
+                      {image.subtitle}
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                      <Link
+                        to="/products"
+                        className="bg-pink-600 hover:bg-pink-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                      >
+                        Explore Fabrics
+                      </Link>
+                      <Link
+                        to="/dyed"
+                        className="border-2 border-white hover:bg-white hover:text-gray-900 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+                      >
+                        View Dyed Collection
+                      </Link>
                     </div>
                   </div>
-                  <div className="text-2xl font-bold text-primary">₹{product.price}</div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation Arrows */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-all duration-300 z-10"
+          aria-label="Previous slide"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white p-3 rounded-full transition-all duration-300 z-10"
+          aria-label="Next slide"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Slide Indicators */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
+          {bannerImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide 
+                  ? "bg-pink-500 w-8" 
+                  : "bg-white/50 hover:bg-white/80"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Scroll indicator - ARROW REMOVED */}
+        {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+          <div className="animate-bounce">
+            <svg
+              className="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
+        </div> */}
+      </section>
+
+      {/* Short Cotton Section */}
+      <section
+        ref={sectionRef}
+        className="py-20 bg-gradient-to-br from-gray-50 to-white"
+      >
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Text Content */}
+              <div>
+                <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                  We help fashion brands turn{" "}
+                  <span className="text-pink-600">ideas into beautiful textiles</span>
+                </h2>
+                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  With a wide network of mills and artisans, we offer customized fabrics, 
+                  prints, textures, and finishes all produced in small or bulk quantities 
+                  and delivered globally.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-pink-500 rounded-full mr-4"></div>
+                    <span className="text-gray-700">Custom fabric manufacturing</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-pink-500 rounded-full mr-4"></div>
+                    <span className="text-gray-700">Global delivery network</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-pink-500 rounded-full mr-4"></div>
+                    <span className="text-gray-700">Small & bulk production</span>
+                  </div>
                 </div>
               </div>
-            ))}
+
+              {/* Image */}
+              <div className="relative">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                  <img
+                    src="https://images.unsplash.com/photo-1520006403909-838d6b92c22e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                    alt="Textile Manufacturing"
+                    className="w-full h-96 object-cover transform hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                </div>
+                
+                {/* Floating stats */}
+                <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-6">
+                  <div className="text-center">
+                    <div className="text-2xl font-bold text-pink-600">500+</div>
+                    <div className="text-sm text-gray-600">Happy Brands</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What We Do - Services Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              What We Do
+            </h2>
+            <p className="text-xl text-gray-600">
+              Comprehensive textile solutions for modern fashion brands
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {/* Service 1 */}
+            <div className="group bg-gray-50 rounded-2xl p-8 hover:bg-pink-50 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-pink-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-200 transition-colors">
+                <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Custom Fabric Manufacturing</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Create unique fabrics tailored to your brand's vision with our custom manufacturing services.
+              </p>
+            </div>
+
+            {/* Service 2 */}
+            <div className="group bg-gray-50 rounded-2xl p-8 hover:bg-pink-50 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-pink-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-200 transition-colors">
+                <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Digital & Screen Printing</h3>
+              <p className="text-gray-600 leading-relaxed">
+                High-quality printing services with vibrant colors and precise patterns for your designs.
+              </p>
+            </div>
+
+            {/* Service 3 */}
+            <div className="group bg-gray-50 rounded-2xl p-8 hover:bg-pink-50 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-pink-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-200 transition-colors">
+                <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Natural & Sustainable Fabrics</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Eco-friendly organic fabrics that are good for your brand and the planet.
+              </p>
+            </div>
+
+            {/* Service 4 */}
+            <div className="group bg-gray-50 rounded-2xl p-8 hover:bg-pink-50 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-pink-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-200 transition-colors">
+                <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Small & More Production</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Flexible production quantities from small batches to large volumes to suit your needs.
+              </p>
+            </div>
+
+            {/* Service 5 */}
+            <div className="group bg-gray-50 rounded-2xl p-8 hover:bg-pink-50 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-pink-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-200 transition-colors">
+                <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Global Sourcing Network</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Access to a worldwide network of mills and artisans for the best materials.
+              </p>
+            </div>
+
+            {/* Service 6 */}
+            <div className="group bg-gray-50 rounded-2xl p-8 hover:bg-pink-50 transition-all duration-300 transform hover:-translate-y-2">
+              <div className="w-16 h-16 bg-pink-100 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-200 transition-colors">
+                <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">Doorstep Delivery Worldwide</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Reliable global shipping with doorstep delivery to any location worldwide.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-pink-600 to-purple-600">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Ready to Create Something Amazing?
+          </h2>
+          <p className="text-xl text-pink-100 mb-8 max-w-2xl mx-auto">
+            Join hundreds of brands that trust us for their fabric needs. Start your journey with custom textiles today.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/contact"
+              className="bg-white text-pink-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+            >
+              Get Started
+            </Link>
+            <Link
+              to="/products"
+              className="border-2 border-white text-white hover:bg-white hover:text-pink-600 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105"
+            >
+              Browse Collections
+            </Link>
           </div>
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
