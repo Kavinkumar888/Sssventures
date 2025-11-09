@@ -67,8 +67,8 @@ const Contact = () => {
               <h2 className="text-3xl font-bold mb-6 text-gray-800">Get in Touch</h2>
               <div className="space-y-6">
                 {[
-                  { icon: <Mail />, title: 'Email', content: 'info@textilehub.com' },
-                  { icon: <Phone />, title: 'Phone', content: '+91 98765 43210' },
+                  { icon: <Mail />, title: 'Email', content: 'sssventures6@gmail.com' },
+                  { icon: <Phone />, title: 'Phone', content: '+91 95855 19593' },
                   { icon: <MapPin />, title: 'Address', content: 'SSS VENTURES,D.No:257/3, Navakadu,Mampalayam Road,Agraharam Post, Near Matheswaran Kovil us Stop, Pallipalayam,Erode - 638008' }
                 ].map((item, index) => (
                   <div key={index} className="flex items-start gap-4">
