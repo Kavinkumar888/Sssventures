@@ -29,8 +29,9 @@ const Header = () => {
 
   const navItems = [
     { path: "/", label: "Home" },
-    { path: "/products", label: "Dyeable[RFD]" },
-    { path: "/Dyed",label: "Dyed"},
+    { path: "/products", label: "Dye" },
+    { path: "/Dyed",label: "Fabric Structure"},
+    { path: "/fabrics",label: "fabrics Finish"},
     { path: "/contact", label: "Contact Us" },
   ];
 

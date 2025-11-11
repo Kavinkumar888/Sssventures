@@ -2,13 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { categories, subCategories, dyedProducts } from "../data/data";
+import { categories, subCategories, dyedProducts } from "../data/fabricsdata";
 import { useCart } from "../context/CartContext";
 
 // ✅ Register GSAP plugin safely
 gsap.registerPlugin(ScrollTrigger);
 
-const Dyed = () => {
+const fabrics = () => {
   const [filteredProducts, setFilteredProducts] = useState(dyedProducts);
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubCategory, setActiveSubCategory] = useState(null);
@@ -258,4 +258,4 @@ const Dyed = () => {
   );
 };
 
-export default Dyed;
+export default fabrics;
