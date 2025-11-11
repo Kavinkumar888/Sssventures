@@ -77,7 +77,7 @@ const Header = () => {
         >
           <input
             type="text"
-            placeholder="Search products..."
+            placeholder="Search..."
             className="px-2 py-1 text-sm w-40 bg-transparent focus:outline-none text-gray-700"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -88,7 +88,7 @@ const Header = () => {
         </form>
 
         {/* Cart + Mobile Menu */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-3">
           {/* Cart Button */}
           <button
             onClick={() => setIsCartOpen(true)}
@@ -112,11 +112,11 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation */}
       <div
         className={`md:hidden absolute top-full left-0 w-full bg-white border-t border-gray-200 shadow-lg overflow-hidden transition-all duration-500 ease-in-out ${
           isMobileMenuOpen
-            ? "max-h-[500px] opacity-100"
+            ? "max-h-[480px] opacity-100"
             : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >

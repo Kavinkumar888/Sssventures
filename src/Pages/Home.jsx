@@ -37,7 +37,6 @@ const Home = () => {
     },
   ];
 
-  // Auto-slide every 5s
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % bannerImages.length);
@@ -48,7 +47,7 @@ const Home = () => {
   useEffect(() => {
     gsap.fromTo(
       heroRef.current,
-      { opacity: 0, y: 50 },
+      { opacity: 0, y: 30 },
       { opacity: 1, y: 0, duration: 1, ease: "power3.out" }
     );
 
@@ -69,7 +68,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white text-gray-900">
+    <div className="min-h-screen bg-white text-gray-900 pt-16">
       {/* HERO SECTION */}
       <section
         ref={heroRef}
@@ -82,18 +81,12 @@ const Home = () => {
               index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
-            {/* Background */}
             <div
-              className="absolute inset-0 w-full h-full bg-cover bg-center"
-              style={{
-                backgroundImage: `url('${image.url}')`,
-              }}
-            ></div>
-
-            {/* Overlay */}
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${image.url}')` }}
+            />
             <div className="absolute inset-0 bg-black/60"></div>
 
-            {/* Text */}
             {index === currentSlide && (
               <div className="relative z-20 flex flex-col justify-center items-center h-full text-center px-6">
                 <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold leading-tight text-white mb-3">
